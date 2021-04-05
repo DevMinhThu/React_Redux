@@ -1,8 +1,13 @@
 import React from "react";
 
-function Reset() {
+function Reset(props) {
+  
+  const resetAll = () => {
+    props.handle_props(true);
+  };
+
   return (
-    <button type="button" className="btn btn-primary">
+    <button type="button" className="btn btn-primary" onClick={resetAll}>
       Reset
     </button>
   );
