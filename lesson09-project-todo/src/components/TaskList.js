@@ -1,7 +1,15 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 
-function TaskList() {
+function TaskList(props) {
+  const tasks = props.taskProps;
+
+  // render elm task
+  let elmTasks = tasks.map((task_value, index) => {
+    // console.log(task_value);
+    return <TaskItem key={task_value.id} index={index} task={task_value} />;
+  });
+
   return (
     <table className="table table-bordered table-hover mt-15">
       <thead>
@@ -27,9 +35,8 @@ function TaskList() {
           </td>
           <td></td>
         </tr>
-        <TaskItem />
         {/* get data here */}
-        {/* {elmTasks} */}
+        {elmTasks}
       </tbody>
     </table>
   );
