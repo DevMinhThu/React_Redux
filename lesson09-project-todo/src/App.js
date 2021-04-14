@@ -8,7 +8,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   // dung thay cho componentWillMount de luu data vao state
-  // khi component render thi useEffect duoc goi toi
+  // khi component render thi useEffect duoc goi toi, chi chay dung 1 lan
   useEffect(() => {
     if (localStorage && localStorage.getItem("tasks")) {
       const task = JSON.parse(localStorage.getItem("tasks"));
