@@ -37,8 +37,8 @@ const store = createStore(myReducer);
 console.log("Default state: ", store.getState());
 // create action
 /* Thực hiện cv thay đổi status */
-let action = { type: "TOGGLE_STATUS" }; // action nay se la action tham so trong ham myReducer
-store.dispatch(action);
+let action = { type: "TOGGLE_STATUS" };
+store.dispatch(action); // luc nay action o tren myReDucer chinh la action nay
 
 console.log("TOGGLE_STATUS handle: ", store.getState());
 

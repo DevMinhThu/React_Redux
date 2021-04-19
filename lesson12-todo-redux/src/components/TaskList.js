@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TaskItem from "./TaskItem";
+import { connect } from "react-redux";
 
 function TaskList(props) {
   const [inputValues, setInputValues] = useState({
@@ -20,7 +21,7 @@ function TaskList(props) {
     setInputValues({ ...inputValues, [name]: value });
   };
 
-  const tasks = props.taskProps;
+  const { tasks } = props;
 
   // render elm task
   let elmTasks = tasks.map((task_value, index) => {
@@ -80,4 +81,15 @@ function TaskList(props) {
   );
 }
 
-export default TaskList;
+// truyen state cua store ==> props
+// param state chinh la cua store
+const mapStateToProps = (state) => {
+  // console.log(state);
+  // tasks laf props duoc chuyen tu state tasks
+  return {
+    tasks: state.tasks_key,
+  };
+};
+
+// ket noi voi store de lay data
+export default connect(mapStateToProps, null)(TaskList);

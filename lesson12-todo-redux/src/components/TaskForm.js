@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import * as actions from "./../actions/index";
 
 function TaskForm(props) {
   const [inputValues, setInputValues] = useState({
@@ -6,6 +8,8 @@ function TaskForm(props) {
     name: "",
     status: false,
   });
+
+  // console.log('before',props.task);
 
   useEffect(() => {
     if (props.task) {
@@ -48,7 +52,9 @@ function TaskForm(props) {
   const onSubmit = (event) => {
     event.preventDefault();
     // console.log(inputValues);
-    props.onSubmit(inputValues);
+    // THUC THI ACTION
+    props.onAddTask(inputValues);
+
     // cancel & Close Form
     onClear();
     onCloseForm();
@@ -113,4 +119,18 @@ function TaskForm(props) {
   );
 }
 
-export default TaskForm;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+// onAddTask la props duoc chuyen tu dispatch sang props
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddTask: (task) => {
+      console.log("param in onAddTask", task);
+      dispatch(actions.addTask(task));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);

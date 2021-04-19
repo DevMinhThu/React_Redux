@@ -4,10 +4,9 @@ import TaskForm from "./components/TaskForm";
 import Control from "./components/Control";
 import TaskList from "./components/TaskList";
 import _ from "lodash";
-import Demo from "./trainning/demo";
+// import Demo from "./trainning/demo";
 
 function App(props) {
-  let [tasks, setTasks] = useState([]);
   const [isDisplayForm, setIsDisplayForm] = useState(false);
   const [taskEditing, setTaskEditing] = useState(null);
   const [filterName, setFilterName] = useState("");
@@ -15,15 +14,6 @@ function App(props) {
   const [keyword, setKeyword] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [sortValue, setSortValue] = useState(1);
-
-  // dung thay cho componentWillMount de luu data vao state
-  // khi component render thi useEffect duoc goi toi, chi chay dung 1 lan
-  useEffect(() => {
-    if (localStorage && localStorage.getItem("tasks")) {
-      const task = JSON.parse(localStorage.getItem("tasks"));
-      setTasks(task);
-    }
-  }, []);
 
   // const onGenerateData = () => {
   //   const taskList = [
@@ -51,31 +41,6 @@ function App(props) {
   //   localStorage.setItem("tasks", JSON.stringify(tasks));
   // };
 
-  const s4 = () => {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  };
-
-  const generateId = () => {
-    return (
-      s4() +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      "-" +
-      s4()
-    );
-  };
-
   // handle close form
   const onCloseForm = () => {
     setIsDisplayForm(false);
@@ -86,27 +51,27 @@ function App(props) {
   };
 
   // handle onSubmit
-  const onSubmit = (data) => {
-    console.log(data);
+  // const onSubmit = (data) => {
+  //   console.log(data);
 
-    if (data.id === "") {
-      data.id = generateId();
-      tasks.push(data);
-    } else {
-      //editing
-      let index = findIndex(data.id);
-      tasks[index] = data;
-    }
+  //   if (data.id === "") {
+  //     data.id = generateId();
+  //     tasks.push(data);
+  //   } else {
+  //     //editing
+  //     let index = findIndex(data.id);
+  //     tasks[index] = data;
+  //   }
 
-    setTasks(tasks);
-    setTaskEditing(null);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    // console.log(data);
-  };
+  //   setTasks(tasks);
+  //   setTaskEditing(null);
+  //   localStorage.setItem("tasks", JSON.stringify(tasks));
+  //   // console.log(data);
+  // };
 
   const elmTaskForm = isDisplayForm ? (
     <TaskForm
-      onSubmit={onSubmit}
+      // onSubmit={onSubmit}
       onCloseForm={onCloseForm}
       task={taskEditing}
     />
@@ -126,51 +91,46 @@ function App(props) {
   };
 
   // tim vi tri item muon update
-  const findIndex = (id) => {
-    let result = -1;
-    tasks.forEach((task, index) => {
-      if (task.id === id) {
-        result = index;
-      }
-    });
-    return result;
-  };
+  // const findIndex = (id) => {
+  //   let result = -1;
+  //   tasks.forEach((task, index) => {
+  //     if (task.id === id) {
+  //       result = index;
+  //     }
+  //   });
+  //   return result;
+  // };
 
-  const onUpdateStatus = (id) => {
-    // console.log(id);
-    // let index = findIndex(id);
-    let index = _.findIndex(tasks, (task) => {
-      return task.id === id;
-    });
-    console.log(index);
-    tasks[index].status = !tasks[index].status;
-    setTasks(tasks);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    // if (index !== -1) {
-    //   tasks[index].status = !tasks[index].status;
-    //   setTasks(tasks);
-    //   localStorage.setItem("tasks", JSON.stringify(tasks));
-    // }
-  };
+  // const onUpdateStatus = (id) => {
+  //   // console.log(id);
+  //   // let index = findIndex(id);
+  //   let index = _.findIndex(tasks, (task) => {
+  //     return task.id === id;
+  //   });
+  //   console.log(index);
+  //   tasks[index].status = !tasks[index].status;
+  //   setTasks(tasks);
+  //   localStorage.setItem("tasks", JSON.stringify(tasks));
+  // };
 
-  const onDelete = (id) => {
-    let index = findIndex(id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-    onCloseForm();
-  };
+  // const onDelete = (id) => {
+  //   let index = findIndex(id);
+  //   if (index !== -1) {
+  //     tasks.splice(index, 1);
+  //     setTasks(tasks);
+  //     localStorage.setItem("tasks", JSON.stringify(tasks));
+  //   }
+  //   onCloseForm();
+  // };
 
   // sua
-  const onUpdate = (id) => {
-    let index = findIndex(id);
-    const taskEditing = tasks[index];
-    console.log(taskEditing);
-    setTaskEditing(taskEditing);
-    onShowForm();
-  };
+  // const onUpdate = (id) => {
+  //   let index = findIndex(id);
+  //   const taskEditing = tasks[index];
+  //   console.log(taskEditing);
+  //   setTaskEditing(taskEditing);
+  //   onShowForm();
+  // };
 
   // loc data
   const onFilter = (filterName, filterStatus) => {
@@ -180,9 +140,9 @@ function App(props) {
     setFilterStatus(filterStatus);
   };
 
-  tasks = tasks.filter((task) => {
-    return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
-  });
+  // tasks = tasks.filter((task) => {
+  //   return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+  // });
 
   // tasks = _.filter(tasks, (task) => {
   //   return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
@@ -195,38 +155,39 @@ function App(props) {
   //       return task.name.toLowerCase().indexOf(filter.name) !== -1;
   //     });
   //   }
-  if (filterName) {
-    tasks = tasks.filter((task) => {
-      return task.name.toLowerCase().indexOf(filterName) !== -1;
-    });
 
-    // loc data theo status
-    tasks = tasks.filter((task) => {
-      if (filterStatus === -1) {
-        return task;
-      } else {
-        return task.status === (filterStatus === 1 ? true : false);
-      }
-    });
-  }
+  // if (filterName) {
+  //   tasks = tasks.filter((task) => {
+  //     return task.name.toLowerCase().indexOf(filterName) !== -1;
+  //   });
 
-  if (filterStatus) {
-    tasks = tasks.filter((task) => {
-      if (filterStatus === "-1" || filterStatus === -1) {
-        return task;
-      } else {
-        return (
-          task.status === (parseInt(filterStatus, 10) === 1 ? true : false)
-        );
-      }
-    });
-  }
+  //   // loc data theo status
+  //   tasks = tasks.filter((task) => {
+  //     if (filterStatus === -1) {
+  //       return task;
+  //     } else {
+  //       return task.status === (filterStatus === 1 ? true : false);
+  //     }
+  //   });
+  // }
 
-  if (filterName) {
-    tasks = tasks.filter((task) => {
-      return task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1;
-    });
-  }
+  // if (filterStatus) {
+  //   tasks = tasks.filter((task) => {
+  //     if (filterStatus === "-1" || filterStatus === -1) {
+  //       return task;
+  //     } else {
+  //       return (
+  //         task.status === (parseInt(filterStatus, 10) === 1 ? true : false)
+  //       );
+  //     }
+  //   });
+  // }
+
+  // if (filterName) {
+  //   tasks = tasks.filter((task) => {
+  //     return task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1;
+  //   });
+  // }
 
   // search form
   const onSearch = (keyword) => {
@@ -242,23 +203,23 @@ function App(props) {
     // console.log(sortValue);
   };
 
-  if (sortBy === "name") {
-    tasks.sort((a, b) => {
-      if (a.name > b.name) {
-        return sortValue;
-      } else if (a.name < b.name) {
-        return -sortValue;
-      } else return 0;
-    });
-  } else {
-    tasks.sort((a, b) => {
-      if (a.status > b.status) {
-        return -sortValue;
-      } else if (a.status < b.status) {
-        return sortValue;
-      } else return 0;
-    });
-  }
+  // if (sortBy === "name") {
+  //   tasks.sort((a, b) => {
+  //     if (a.name > b.name) {
+  //       return sortValue;
+  //     } else if (a.name < b.name) {
+  //       return -sortValue;
+  //     } else return 0;
+  //   });
+  // } else {
+  //   tasks.sort((a, b) => {
+  //     if (a.status > b.status) {
+  //       return -sortValue;
+  //     } else if (a.status < b.status) {
+  //       return sortValue;
+  //     } else return 0;
+  //   });
+  // }
 
   return (
     <div className="container">
@@ -303,10 +264,10 @@ function App(props) {
 
           {/* List */}
           <TaskList
-            taskProps={tasks}
-            onUpdateStatus={onUpdateStatus}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
+            // taskProps={tasks}
+            // onUpdateStatus={onUpdateStatus}
+            // onDelete={onDelete}
+            // onUpdate={onUpdate}
             onFilter={onFilter}
           />
         </div>
