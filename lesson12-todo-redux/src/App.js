@@ -5,15 +5,18 @@ import Control from "./components/Control";
 import TaskList from "./components/TaskList";
 import _ from "lodash";
 // import Demo from "./trainning/demo";
+import { connect } from "react-redux";
+import * as actions from "./actions/index";
 
 function App(props) {
-  const [isDisplayForm, setIsDisplayForm] = useState(false);
   const [taskEditing, setTaskEditing] = useState(null);
   const [filterName, setFilterName] = useState("");
   const [filterStatus, setFilterStatus] = useState(-1);
   const [keyword, setKeyword] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [sortValue, setSortValue] = useState(1);
+
+  const { isDisplayForm } = props;
 
   // const onGenerateData = () => {
   //   const taskList = [
@@ -41,53 +44,22 @@ function App(props) {
   //   localStorage.setItem("tasks", JSON.stringify(tasks));
   // };
 
-  // handle close form
-  const onCloseForm = () => {
-    setIsDisplayForm(false);
-  };
-
   const onShowForm = () => {
-    setIsDisplayForm(true);
+    // setIsDisplayForm(true);
   };
 
-  // handle onSubmit
-  // const onSubmit = (data) => {
-  //   console.log(data);
-
-  //   if (data.id === "") {
-  //     data.id = generateId();
-  //     tasks.push(data);
-  //   } else {
-  //     //editing
-  //     let index = findIndex(data.id);
-  //     tasks[index] = data;
-  //   }
-
-  //   setTasks(tasks);
-  //   setTaskEditing(null);
-  //   localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   // console.log(data);
-  // };
-
-  const elmTaskForm = isDisplayForm ? (
-    <TaskForm
-      // onSubmit={onSubmit}
-      onCloseForm={onCloseForm}
-      task={taskEditing}
-    />
-  ) : (
-    ""
-  );
+  const elmTaskForm = isDisplayForm ? <TaskForm task={taskEditing} /> : "";
 
   // add tasks
   const onToggleForm = () => {
-    if (isDisplayForm && taskEditing !== null) {
-      setTaskEditing(null);
-      setIsDisplayForm(true);
-    } else {
-      setIsDisplayForm(!isDisplayForm);
-      setTaskEditing(null);
-    }
+    // if (isDisplayForm && taskEditing !== null) {
+    //   setTaskEditing(null);
+    //   // setIsDisplayForm(true);
+    // } else {
+    //   // setIsDisplayForm(!isDisplayForm);
+    //   setTaskEditing(null);
+    // }
+    props.onToggleForm();
   };
 
   // tim vi tri item muon update
@@ -276,4 +248,21 @@ function App(props) {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isDisplayForm: state.isDisplayForm_key,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onToggleForm: () => {
+      dispatch(actions.toggleForm());
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
