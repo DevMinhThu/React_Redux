@@ -9,6 +9,13 @@ import TaskFlatListContainer from './src/containers/TaskFlatListContainer';
 import numberReducer from './src/reducers/NumberReducer';
 import taskListReducer from './src/reducers/TaskListReducer';
 
+const store = createStore(
+  combineReducers({
+    numberReduce: numberReducer,
+    taskList: taskListReducer,
+  }),
+);
+
 // // State
 // let appState = {
 //   number: 1,
@@ -17,13 +24,6 @@ import taskListReducer from './src/reducers/TaskListReducer';
 // };
 
 // // Action
-
-const store = createStore(
-  combineReducers({
-    numberReduce: numberReducer,
-    taskList: taskListReducer,
-  }),
-);
 
 //   // bat buoc phai tra ve state
 //   return state;

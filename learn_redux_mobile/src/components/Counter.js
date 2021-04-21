@@ -15,6 +15,10 @@ export default class Counter extends Component {
   }
 }
 
+Counter.defaultProps = {
+  number: 1,
+};
+
 const styles = StyleSheet.create({
   counterView: {
     height: 40,

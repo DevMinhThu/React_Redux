@@ -20,7 +20,7 @@ export default connect(
   state => {
     console.log(state);
     return {
-      a: state.numberReduce,
+      number: state.numberReduce.number,
     };
   },
   dispatch => {
