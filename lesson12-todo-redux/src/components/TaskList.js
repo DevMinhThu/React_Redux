@@ -31,8 +31,6 @@ function TaskList(props) {
         key={task_value.id}
         index={index}
         task={task_value}
-        onUpdateStatus={props.onUpdateStatus}
-        onDelete={props.onDelete}
         onUpdate={props.onUpdate}
       />
     );

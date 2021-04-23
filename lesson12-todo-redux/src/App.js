@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import TaskForm from "./components/TaskForm";
 import Control from "./components/Control";
 import TaskList from "./components/TaskList";
-import _ from "lodash";
 // import Demo from "./trainning/demo";
 import { connect } from "react-redux";
 import * as actions from "./actions/index";
@@ -17,32 +16,6 @@ function App(props) {
   const [sortValue, setSortValue] = useState(1);
 
   const { isDisplayForm } = props;
-
-  // const onGenerateData = () => {
-  //   const taskList = [
-  //     {
-  //       id: generateId(),
-  //       name: "ReactJS",
-  //       status: true,
-  //     },
-  //     {
-  //       id: generateId(),
-  //       name: "Node JS",
-  //       status: false,
-  //     },
-  //     {
-  //       id: generateId(),
-  //       name: "Vue JS",
-  //       status: true,
-  //     },
-  //   ];
-  //   // console.log(tasks);
-  //   // se tu hieu la gan data tk taskList vao state tasks
-  //   setTasks(taskList);
-
-  //   // luu data tren trinh duyet va chuyen sang dang chuoi (string)
-  //   localStorage.setItem("tasks", JSON.stringify(tasks));
-  // };
 
   const onShowForm = () => {
     // setIsDisplayForm(true);
@@ -71,28 +44,6 @@ function App(props) {
   //     }
   //   });
   //   return result;
-  // };
-
-  // const onUpdateStatus = (id) => {
-  //   // console.log(id);
-  //   // let index = findIndex(id);
-  //   let index = _.findIndex(tasks, (task) => {
-  //     return task.id === id;
-  //   });
-  //   console.log(index);
-  //   tasks[index].status = !tasks[index].status;
-  //   setTasks(tasks);
-  //   localStorage.setItem("tasks", JSON.stringify(tasks));
-  // };
-
-  // const onDelete = (id) => {
-  //   let index = findIndex(id);
-  //   if (index !== -1) {
-  //     tasks.splice(index, 1);
-  //     setTasks(tasks);
-  //     localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   }
-  //   onCloseForm();
   // };
 
   // sua
@@ -237,8 +188,6 @@ function App(props) {
           {/* List */}
           <TaskList
             // taskProps={tasks}
-            // onUpdateStatus={onUpdateStatus}
-            // onDelete={onDelete}
             // onUpdate={onUpdate}
             onFilter={onFilter}
           />
