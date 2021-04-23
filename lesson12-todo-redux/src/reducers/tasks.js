@@ -44,20 +44,19 @@ let initialState = data ? data : [];
 
 const myReducer = (state = initialState, action) => {
   // console.log(state);
-  let id = "";
   let index = -1;
   switch (action.type) {
     case types.LIST_ALL:
       return state;
 
     case types.ADD_TASK:
-      console.log(action);
+      console.log("action of add_task", action);
       let newTask = {
         id: randomID(),
         name: action.task.name,
         status: action.task.status === "true" ? true : false,
       };
-      state.push(newTask);
+      state.push(newTask); // push newTask vua add vao state hien tai
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
 

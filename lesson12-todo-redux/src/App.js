@@ -198,6 +198,7 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state in file App', state);
   return {
     isDisplayForm: state.isDisplayForm_key,
   };

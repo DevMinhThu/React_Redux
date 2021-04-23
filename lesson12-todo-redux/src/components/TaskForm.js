@@ -53,7 +53,7 @@ function TaskForm(props) {
     event.preventDefault();
     // console.log(inputValues);
     // THUC THI ACTION
-    props.onAddTask(inputValues);
+    props.onAddTask(inputValues); // tuong duong voi dispatch(action.addTask(task))
 
     // cancel & Close Form
     onClear();
@@ -127,7 +127,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddTask: (task) => {
-      console.log("param in onAddTask", task);
+      // console.log("param in onAddTask", task);
       dispatch(actions.addTask(task));
     },
 
