@@ -19,7 +19,15 @@ const menu = [
   },
 ];
 
-// custom menu
+// custom tag Link
+/* 
+  custom MenuLink giong the Link
+  param la 1 object co 3 params
+  - label: la noi dung the do
+  - to: duong dan URL giong href
+  - activeOnlyWhenExact: giong exact, gia tri la boolean
+  Khi vao dung URL no se them active vao the li chu khong cho vao the Link
+*/
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
   return (
     <Route

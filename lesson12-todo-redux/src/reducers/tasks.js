@@ -71,7 +71,7 @@ const myReducer = (state = initialState, action) => {
 
     case types.DELETE_TASK:
       index = findIndex(state, action.id);
-      state.splice(index, 1);
+      state.splice(index, 1); // delete theo index, va delete 1 phan tu
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
 
