@@ -17,6 +17,28 @@ function ProductListPage(props) {
     });
   }, []);
 
+  const onDelete = (id) => {
+    callApi(`products/${id}`, "DELETE", null).then((res) => {
+      if (res.status === 200) {
+        const index = findIndex(products, id);
+        if (index !== -1) {
+          products.splice(index, 1);
+          setProducts(products);
+        }
+      }
+    });
+  };
+
+  const findIndex = (products, id) => {
+    let result = -1;
+    products.forEach((product, index) => {
+      if (product.id === id) {
+        result = index;
+      }
+    });
+    return result;
+  };
+
   // let products = [];
 
   // call api by axios
@@ -41,7 +63,14 @@ function ProductListPage(props) {
     let result = null;
     if (products.length > 0) {
       result = products.map((val, index) => {
-        return <ProductItem key={index} product={val} index={index} />;
+        return (
+          <ProductItem
+            key={index}
+            product={val}
+            index={index}
+            onDelete={onDelete}
+          />
+        );
       });
     }
     return result;
