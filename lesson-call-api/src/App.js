@@ -28,6 +28,7 @@ function App() {
       <Menu />
 
       <div className="container">
+        {/* show router menu */}
         <div className="row">{showContentMenu(routes)}</div>
       </div>
     </BrowserRouter>

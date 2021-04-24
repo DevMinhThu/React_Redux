@@ -12,6 +12,14 @@ function ProductListPage() {
       status: true,
       action: true,
     },
+    {
+      stt: 2,
+      id: 6,
+      name: "Iphone X",
+      price: 1000,
+      status: false,
+      action: false,
+    },
   ];
 
   // show product function

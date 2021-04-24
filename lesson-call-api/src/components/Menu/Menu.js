@@ -1,17 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Menu() {
   return (
     <div className="navbar navbar-default">
-      <a className="navbar-brand" href="#">
+      <Link className="navbar-brand" to="/">
         Call API
-      </a>
+      </Link>
       <ul className="nav navbar-nav">
         <li>
-          <a href="#">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a href="#">Product Manage</a>
+          <Link to="/product-list">Product Manage</Link>
         </li>
       </ul>
     </div>
