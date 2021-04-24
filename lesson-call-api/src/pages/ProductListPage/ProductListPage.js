@@ -3,6 +3,7 @@ import ProductList from "./../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { connect } from "react-redux";
 import callApi from "./../../utils/apiCaller";
+import { Link } from "react-router-dom";
 
 function ProductListPage(props) {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ function ProductListPage(props) {
   useEffect(() => {
     // truyen vao 3 tham so la: endpoint, method, data
     callApi("products", "GET", null).then((res) => {
-      console.log("res in callApi", res);
+      // console.log("res in callApi", res);
       setProducts(res.data);
     });
   }, []);
@@ -48,9 +49,9 @@ function ProductListPage(props) {
 
   return (
     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <button type="button" className="btn btn-info mb-10">
+      <Link to="/product/add" className="btn btn-info mb-10">
         Add Product
-      </button>
+      </Link>
       <ProductList>{showProducts(products)}</ProductList>
     </div>
   );
