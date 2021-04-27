@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import callApi from "./../../utils/apiCaller";
 
@@ -20,19 +20,48 @@ function ProductActionPage(props) {
     setInputValues({ ...inputValues, [name]: value });
   };
 
+  useEffect(() => {
+    if (props.match) {
+      let id = props.match.params.id;
+      callApi(`products/${id}`, "GET", null).then((res) => {
+        let data = res.data;
+        setInputValues({
+          id: data.id,
+          txtName: data.name,
+          txtPrice: data.price,
+          chkbStatus: data.chkbStatus,
+        });
+      });
+    }
+  }, []);
+
   // add product
   const onSave = (event) => {
     // chan load lai trang
     event.preventDefault();
-    // method POST phai gui data len voi key va value tuong ung
-    callApi("products", "POST", {
-      name: inputValues.txtName,
-      price: inputValues.txtPrice,
-      status: inputValues.chkbStatus,
-    }).then((res) => {
-      // console.log(res);
-      props.history.goBack();
-    });
+
+    // neu co id la update
+    const { id } = inputValues;
+    if (id) {
+      //update
+      callApi(`products/${id}`, "PUT", {
+        name: inputValues.txtName,
+        price: inputValues.txtPrice,
+        status: inputValues.chkbStatus,
+      }).then((res) => {
+        props.history.goBack();
+      });
+    } else {
+      // method POST phai gui data len voi key va value tuong ung
+      callApi("products", "POST", {
+        name: inputValues.txtName,
+        price: inputValues.txtPrice,
+        status: inputValues.chkbStatus,
+      }).then((res) => {
+        // console.log(res);
+        props.history.goBack();
+      });
+    }
   };
 
   return (
@@ -70,6 +99,7 @@ function ProductActionPage(props) {
               name="chkbStatus"
               value={inputValues.chkbStatus}
               onChange={onChange}
+              checked={inputValues.chkbStatus}
             />
             Stocking
           </label>

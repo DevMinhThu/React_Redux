@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ProductItem(props) {
   const { index, product } = props;
@@ -21,9 +22,9 @@ function ProductItem(props) {
         <span className={`label label-${statusClass}`}>{statusName}</span>
       </td>
       <td>
-        <button type="button" className="btn btn-success mr-10">
+        <Link to={`/product/${product.id}/edit`} className="btn btn-success mr-10" >
           Edit
-        </button>
+        </Link>
         <button
           type="button"
           className="btn btn-danger"
