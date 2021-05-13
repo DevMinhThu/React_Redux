@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import callApi from "./../../utils/apiCaller";
 import { connect } from "react-redux";
-import { actAddProduct, actAddProductRequest } from "../../actions/index";
+import {
+  actAddProduct,
+  actAddProductRequest,
+  actGetProductRequest,
+} from "../../actions/index";
 
 function ProductActionPage(props) {
   const [inputValues, setInputValues] = useState({
@@ -25,15 +29,16 @@ function ProductActionPage(props) {
   useEffect(() => {
     if (props.match) {
       let id = props.match.params.id;
-      callApi(`products/${id}`, "GET", null).then((res) => {
-        let data = res.data;
-        setInputValues({
-          id: data.id,
-          txtName: data.name,
-          txtPrice: data.price,
-          chkbStatus: data.chkbStatus,
-        });
-      });
+      // callApi(`products/${id}`, "GET", null).then((res) => {
+      //   let data = res.data;
+      //   setInputValues({
+      //     id: data.id,
+      //     txtName: data.name,
+      //     txtPrice: data.price,
+      //     chkbStatus: data.chkbStatus,
+      //   });
+      // });
+      props.onEditProduct(id);
     }
   }, []);
 
@@ -130,6 +135,10 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddProduct: (product) => {
       dispatch(actAddProductRequest(product));
+    },
+
+    onEditProduct: (id) => {
+      dispatch(actGetProductRequest(id));
     },
   };
 };
