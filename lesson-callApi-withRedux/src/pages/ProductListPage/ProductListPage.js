@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ProductList from "./../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { connect } from "react-redux";
-import callApi from "./../../utils/apiCaller";
+// import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
-import { actFetchProductsRequest } from "./../../actions/index";
+import {
+  actFetchProductsRequest,
+  actDeleteProductRequest,
+} from "./../../actions/index";
 
 function ProductListPage(props) {
-  const [products, setProducts] = useState([]);
-
   // cach viet componentDidMount bang hooks
   useEffect(() => {
     // truyen vao 3 tham so la: endpoint, method, data
@@ -18,26 +19,11 @@ function ProductListPage(props) {
     props.fetchAllProducts();
   }, []);
 
+  // DELETE PRODUCT
+  // id này là tham số nhận lại product.id được truyền từ ProductItem sang
   const onDelete = (id) => {
-    callApi(`products/${id}`, "DELETE", null).then((res) => {
-      if (res.status === 200) {
-        const index = findIndex(products, id);
-        if (index !== -1) {
-          products.splice(index, 1);
-          setProducts(products);
-        }
-      }
-    });
-  };
-
-  const findIndex = (products, id) => {
-    let result = -1;
-    products.forEach((product, index) => {
-      if (product.id === id) {
-        result = index;
-      }
-    });
-    return result;
+    console.log(id);
+    props.onDeleteProduct(id);
   };
 
   // let products = [];
@@ -64,6 +50,7 @@ function ProductListPage(props) {
     let result = null;
     if (products.length > 0) {
       result = products.map((val, index) => {
+        // console.log('val',val);
         return (
           <ProductItem
             key={index}
@@ -98,6 +85,10 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     fetchAllProducts: () => {
       dispatch(actFetchProductsRequest());
+    },
+    onDeleteProduct: (id) => {
+      console.log(id);
+      dispatch(actDeleteProductRequest(id));
     },
   };
 };

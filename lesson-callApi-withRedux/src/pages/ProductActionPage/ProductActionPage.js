@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import callApi from "./../../utils/apiCaller";
+import { connect } from "react-redux";
+import { actAddProduct, actAddProductRequest } from "../../actions/index";
 
 function ProductActionPage(props) {
   const [inputValues, setInputValues] = useState({
@@ -42,6 +44,12 @@ function ProductActionPage(props) {
 
     // neu co id la update
     const { id } = inputValues;
+    const product = {
+      id: id,
+      name: inputValues.txtName,
+      price: inputValues.txtPrice,
+      status: inputValues.chkbStatus,
+    };
     if (id) {
       //update
       callApi(`products/${id}`, "PUT", {
@@ -52,15 +60,17 @@ function ProductActionPage(props) {
         props.history.goBack();
       });
     } else {
-      // method POST phai gui data len voi key va value tuong ung
-      callApi("products", "POST", {
-        name: inputValues.txtName,
-        price: inputValues.txtPrice,
-        status: inputValues.chkbStatus,
-      }).then((res) => {
-        // console.log(res);
-        props.history.goBack();
-      });
+      // // method POST phai gui data len voi key va value tuong ung
+      // callApi("products", "POST", {
+      //   name: inputValues.txtName,
+      //   price: inputValues.txtPrice,
+      //   status: inputValues.chkbStatus,
+      // }).then((res) => {
+      //   // console.log(res);
+      //   props.history.goBack();
+      // });
+      props.onAddProduct(product);
+      props.history.goBack();
     }
   };
 
@@ -116,4 +126,12 @@ function ProductActionPage(props) {
   );
 }
 
-export default ProductActionPage;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddProduct: (product) => {
+      dispatch(actAddProductRequest(product));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ProductActionPage);
